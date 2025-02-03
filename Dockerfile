@@ -3,6 +3,6 @@ WORKDIR /app
 
 EXPOSE 8080
 
-COPY target/jdsa-0.0.1-SNAPSHOT.jar .
+COPY target/*.jar application.jar
 
-CMD ["java", "-jar", "jdsa-0.0.1-SNAPSHOT.jar"]
+CMD ["java", "-jar", "application.jar"]
