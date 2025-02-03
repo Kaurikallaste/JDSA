@@ -1,0 +1,10 @@
+services:
+  backend:
+    build: .
+    ports:
+      - 8080:8080
+    develop:
+      watch:
+        - action: sync+restart
+          path: target/jdsa-0.0.1-SNAPSHOT.jar
+          target: ./app/jdsa-0.0.1-SNAPSHOT.jar
