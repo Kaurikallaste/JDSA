@@ -5,7 +5,7 @@ import ee.sk.mid.MidInputUtil;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/mobileid")
+@RequestMapping("/api/mid")
 public class MobileIdController {
 
     private MobileIdServiceInterface mobileIdService;
