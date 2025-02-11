@@ -1,6 +1,7 @@
 package com.kaurikallaste.jdsa.mobileid;
 
 import com.kaurikallaste.jdsa.mobileid.dtos.MobileIdSigningDTO;
+import com.kaurikallaste.jdsa.mobileid.dtos.response.MobileIdStartSignResponse;
 import ee.sk.mid.MidInputUtil;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,12 +18,14 @@ public class MobileIdController {
     }
 
     @PostMapping("/startSigning")
-    public String startSigning(@RequestBody MobileIdSigningDTO mobileIdSigningDTO) {
+    public MobileIdStartSignResponse startSigning(@RequestBody MobileIdSigningDTO mobileIdSigningDTO) {
         // Validate on the first request so it fails faster
         String personalIdCode = MidInputUtil.getValidatedNationalIdentityNumber(mobileIdSigningDTO.getPersonalIdCode());
         String phoneNumber = MidInputUtil.getValidatedPhoneNumber(mobileIdSigningDTO.getMobileNumber());
 
-        return mobileIdService.startSigning(mobileIdSigningDTO.getDataBase64());
+        return (new MobileIdStartSignResponse()).setVerificationCode(
+            mobileIdService.startSigning(mobileIdSigningDTO.getDataBase64())
+        );
     }
 
     @PostMapping("/finishSigning")

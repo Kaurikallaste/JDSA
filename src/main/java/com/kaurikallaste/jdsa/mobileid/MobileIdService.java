@@ -45,7 +45,7 @@ public class MobileIdService implements MobileIdServiceInterface {
 
         MidSignature signature = client.createMobileIdSignature(midSessionStatus);
 
-        //todo, create container, sign return as base64
+        //todo, create container, sign, return as base64
 
         return "";
     }
