@@ -27,6 +27,10 @@ public class MobileIdController {
 
     @PostMapping("/finishSigning")
     public String finishSigning(@RequestBody MobileIdSigningDTO mobileIdSigningDTO) {
-        return "dataInBase64";
+        return this.mobileIdService.finishSigning(
+            mobileIdSigningDTO.getPersonalIdCode(),
+            mobileIdSigningDTO.getMobileNumber(),
+            mobileIdSigningDTO.getDataBase64()
+        );
     }
 }

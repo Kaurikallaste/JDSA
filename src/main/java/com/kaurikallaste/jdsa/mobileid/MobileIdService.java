@@ -1,8 +1,9 @@
 package com.kaurikallaste.jdsa.mobileid;
 
-import ee.sk.mid.MidClient;
-import ee.sk.mid.MidHashToSign;
-import ee.sk.mid.MidHashType;
+import ee.sk.mid.*;
+import ee.sk.mid.rest.dao.MidSessionStatus;
+import ee.sk.mid.rest.dao.request.MidSignatureRequest;
+import ee.sk.mid.rest.dao.response.MidSignatureResponse;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -23,6 +24,29 @@ public class MobileIdService implements MobileIdServiceInterface {
 
     @Override
     public String finishSigning(String personalIdCode, String phoneNumber, String dataBase64) {
+        MidClient client = this.getMidClient();
+        MidHashToSign hashToSign = this.getHashToSign(dataBase64);
+
+        MidSignatureRequest request = MidSignatureRequest
+            .newBuilder()
+            .withPhoneNumber(phoneNumber)
+            .withNationalIdentityNumber(personalIdCode)
+            .withHashToSign(hashToSign)
+            .withLanguage(MidLanguage.ENG) //TODO make conf
+            .withDisplayText("sign") //TODO make conf
+            .withDisplayTextFormat(MidDisplayTextFormat.GSM7)
+            .build();
+
+        MidSignatureResponse response = client.getMobileIdConnector().sign(request);
+
+        MidSessionStatus midSessionStatus = client
+            .getSessionStatusPoller()
+            .fetchFinalSessionStatus(response.getSessionID(), "/signature/session/{sessionId}");
+
+        MidSignature signature = client.createMobileIdSignature(midSessionStatus);
+
+        //todo, create container, sign return as base64
+
         return "";
     }
 
