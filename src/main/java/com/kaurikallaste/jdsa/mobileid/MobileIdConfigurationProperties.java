@@ -16,19 +16,39 @@ public class MobileIdConfigurationProperties {
         return hostUrl;
     }
 
+    public void setHostUrl(String hostUrl) {
+        this.hostUrl = hostUrl;
+    }
+
     public String getRelyingPartyUUID() {
         return relyingPartyUUID;
+    }
+
+    public void setRelyingPartyUUID(String relyingPartyUUID) {
+        this.relyingPartyUUID = relyingPartyUUID;
     }
 
     public String getRelyingPartyName() {
         return relyingPartyName;
     }
 
+    public void setRelyingPartyName(String relyingPartyName) {
+        this.relyingPartyName = relyingPartyName;
+    }
+
     public String getTrustStorePath() {
         return trustStorePath;
     }
 
+    public void setTrustStorePath(String trustStorePath) {
+        this.trustStorePath = trustStorePath;
+    }
+
     public String getTrustStorePassword() {
         return trustStorePassword;
+    }
+
+    public void setTrustStorePassword(String trustStorePassword) {
+        this.trustStorePassword = trustStorePassword;
     }
 }
